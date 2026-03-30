@@ -5,9 +5,9 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-schedule:
-    - cron: 00 18 * * *
-    - cron: 00 3 * * *
+  schedule:
+    - cron: "0 18 * * *"
+    - cron: "0 3 * * *"
 
 jobs:
   build:
@@ -24,11 +24,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build Project (Skip Tests)
-      run: mvn clean install -DskipTests
+    - name: Execute Tests
+      run: mvn clean test
 
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v3.2.2
+    - name: Upload Logs
+      uses: actions/upload-artifact@v3
       with:
-       name: Logs
-       path: logs/
+        name: Logs
+        path: logs/
